@@ -2,9 +2,9 @@ const data = require('../data/zoo_data');
 
 function getSpeciesByIds(...ids) {
   const { species } = data;
-  const obtainedSpecie = []
+  const obtainedSpecie = [];
 
-  species.forEach(specie => {
+  species.forEach((specie) => {
     const { id } = specie;
 
     if (id === ids[0] || id === ids[1]) {
