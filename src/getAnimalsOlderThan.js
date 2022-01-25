@@ -5,7 +5,7 @@ function getAnimalsOlderThan(animal, age) {
 
   const filtred = species.filter((specie) => animal === specie.name)[0].residents;
 
-  const validation = filtred.every((zooAnimal) =>  {
+  const validation = filtred.every((zooAnimal) => {
     const { age: animalAge } = zooAnimal;
 
     return animalAge >= age;
