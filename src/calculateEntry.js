@@ -7,13 +7,13 @@ function countEntrants(entrants) {
   const adult = entrants.filter(({ age }) => age >= 18 && age < 50).length;
   const senior = entrants.filter(({ age }) => age >= 50).length;
 
-  return { child, adult, senior, };
+  return { child, adult, senior };
 }
 
 function calculateEntry(entrants) {
   if (entrants === undefined || Object.keys(entrants).length === 0) {
     return 0;
-  };
+  }
 
   const { child: childCount, adult: adultcount, senior: seniorCount } = countEntrants(entrants);
   const { child, adult, senior } = prices;
