@@ -3,12 +3,12 @@ const data = require('../data/zoo_data');
 const { species } = data;
 
 function countAnimals(animal) {
-  const counter = {}
+  const counter = {};
 
   if (typeof animal !== 'object') {
     species.forEach(({ name, residents }) => counter[name] = residents.length);
-  
-    return counter; 
+
+    return counter;
   }
 
   return Object.keys(animal).length === 1 ? countByName(animal) : countBySex(animal);
