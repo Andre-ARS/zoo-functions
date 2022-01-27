@@ -1,33 +1,9 @@
 const data = require('../data/zoo_data');
 
 const { species } = data;
+const regions = ['NE', 'NW', 'SE', 'SW'];
 
-function getAnimalName() {
-  const ne = species.filter(({ location }) => location === 'NE').map(({ name }) => name);
-  // const nw = species.filter(({ location }) => location === 'NW').map(({ name }) => name);
-  // const se = species.filter(({ location }) => location === 'SE').map(({ name }) => name);
-  // const sw = species.filter(({ location }) => location === 'SW').map(({ name }) => name);
-
-  const NE = ne.map((specie) => {
-    const { residents } = species.find(({ name }) => specie === name);
-
-    const resident = { [specie]: residents.map((animal, index) => residents[index].name) };
-
-    return resident;
-  });
-  const NW = 'l';
-  const SE = 'k';
-  const SW = 'j';
-
-  return { NE, NW, SE, SW };
-}
-
-function getAnimalMap(options) {
-  if (typeof options === 'object') {
-    getAnimalName();
-  }
-
-  const regions = ['NE', 'NW', 'SE', 'SW'];
+function generateMap() {
   const map = {};
 
   regions.forEach((reg) => {
@@ -36,6 +12,56 @@ function getAnimalMap(options) {
   return map;
 }
 
+const normalNames = (sorted) => {
+  const map = {};
+
+  regions.forEach((reg) => {
+    map[reg] = species.filter(({ location }) => location === reg).map(({ name }) => name)
+      .map((specie) => {
+        const { residents } = species.find(({ name }) => specie === name);
+
+        if (sorted) {
+          return { [specie]: residents.map(({ name }) => name).sort() };
+        }
+        return { [specie]: residents.map(({ name }) => name) };
+      });
+  });
+  return map;
+};
+
+const bySexAnimals = (sex, sorted) => {
+  const map = {};
+
+  regions.forEach((reg) => {
+    map[reg] = species.filter(({ location }) => location === reg).map(({ name }) => name)
+      .map((specie) => {
+        const { residents } = species.find(({ name }) => specie === name);
+        if (sorted) {
+          return { [specie]: residents.filter(({ sex: sexo }) => sexo === sex)
+            .map(({ name }) => name).sort() };
+        }
+        return { [specie]: residents.filter(({ sex: sexo }) => sexo === sex)
+          .map(({ name }) => name) };
+      });
+  });
+  return map;
+};
+
+function getAnimalName({ includeNames, sex, sorted }) {
+  if (sex) {
+    return bySexAnimals(sex, sorted);
+  }
+  return normalNames(sorted);
+}
+
+function getAnimalMap(options) {
+  if (!options || !options.includeNames || options.includeNames === false) {
+    return generateMap();
+  }
+
+  if (options.includeNames) {
+    return getAnimalName(options);
+  }
+}
+
 module.exports = getAnimalMap;
-console.log(getAnimalMap());
-console.log(getAnimalName());
