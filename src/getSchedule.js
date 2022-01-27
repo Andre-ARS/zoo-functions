@@ -10,7 +10,7 @@ const getAnimalsAgenda = (day) => {
   }
 
   return species.filter(({ availability }) => availability.includes(day))
-  .map(({ name }) => name);
+    .map(({ name }) => name);
 };
 
 const getDaySchedule = (target) => {
@@ -19,7 +19,7 @@ const getDaySchedule = (target) => {
 
   if (target === 'Monday') {
     return {
-      'Monday': { 'officeHour': 'CLOSED', 'exhibition': 'The zoo will be closed!' },
+      Monday: { officeHour: 'CLOSED', exhibition: 'The zoo will be closed!' },
     };
   }
 
@@ -31,16 +31,13 @@ const getDaySchedule = (target) => {
   return daySchedule;
 };
 
-const animalSchedule = (animal) => {
-  return species.filter(({ name }) => name === animal )[0].availability;
-};
+const animalSchedule = (animal) => species.filter(({ name }) => name === animal )[0].availability;
 
 function getSchedule(scheduleTarget) {
   const schedule = {};
-
   if (days.includes(scheduleTarget)) {
     return getDaySchedule(scheduleTarget);
-  } 
+  }
 
   if (animals.includes(scheduleTarget)) {
     return animalSchedule(scheduleTarget);
@@ -49,14 +46,12 @@ function getSchedule(scheduleTarget) {
   Object.keys(hours).forEach((day) => {
     const { open, close } = hours[day];
 
-    schedule[day] = { 
+    schedule[day] = {
       officeHour: open === 0 && close === 0 ? 'CLOSED' : `Open from ${open}am until ${close}pm`,
       exhibition: getAnimalsAgenda(day),
-    }
+    };
   });
-
   return schedule;
 }
 
 module.exports = getSchedule;
-console.log(animalSchedule('lions'));
