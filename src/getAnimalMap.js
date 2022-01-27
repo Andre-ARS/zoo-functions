@@ -12,7 +12,7 @@ function generateMap() {
   return map;
 }
 
-const normalNames = (sorted) => {
+const withAnimalName = (sorted) => {
   const map = {};
 
   regions.forEach((reg) => {
@@ -51,7 +51,7 @@ function getAnimalName({ includeNames, sex, sorted }) {
   if (sex) {
     return bySexAnimals(sex, sorted);
   }
-  return normalNames(sorted);
+  return withAnimalName(sorted);
 }
 
 function getAnimalMap(options) {
