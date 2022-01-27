@@ -31,7 +31,7 @@ const getDaySchedule = (target) => {
   return daySchedule;
 };
 
-const animalSchedule = (animal) => species.filter(({ name }) => name === animal )[0].availability;
+const animalSchedule = (animal) => species.filter(({ name }) => name === animal)[0].availability;
 
 function getSchedule(scheduleTarget) {
   const schedule = {};
